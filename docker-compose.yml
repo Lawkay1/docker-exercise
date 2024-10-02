@@ -17,7 +17,7 @@ services:
     container_name: mariadb
     ports:
       - "3306:3306"
-    # env_file: .env
+    env_file: .env
     environment:
        MARIADB_ROOT_PASSWORD: ${DB_PASSWORD}
        MARIADB_ROOT_HOST: ${DB_HOST}
