@@ -1,0 +1,43 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: nodejs_img
+    networks:
+      - docker_exercise_network
+    ports:
+      - "3000:3000"
+      
+    depends_on:
+      - db
+  
+  db:
+    image: mariadb
+    container_name: mariadb
+    ports:
+      - "3306:3306"
+    env_file: .env
+    environment:
+       MARIADB_ROOT_PASSWORD: ${DB_PASSWORD}
+       MARIADB_ROOT_HOST: ${DB_HOST}
+       MARIADB_USER: ${DB_USERNAME}
+       MARIADB_PASSWORD: ${DB_PASSWORD}
+       MARIADB_DATABASE: ${DB_DATABASE}
+
+    volumes:
+       - mariadb_data:/var/lib/mariadb/data
+      
+    networks:
+        - docker_exercise_network
+  
+
+volumes:
+  mariadb_data:
+
+networks:
+  docker_exercise_network:
+    
+
+
+
